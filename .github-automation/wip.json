@@ -1,0 +1,33 @@
+{
+  "triggers": [
+    "pull-request-opened",
+    "pull-request-updated"
+  ],
+  "instructions": [
+    {
+      "node-type": "ifCondition",
+      "condition": {
+        "property": "title",
+        "operand": "contains",
+        "value": "WIP"
+      },
+      "consequent": [
+        {
+          "node-type": "setGitHubStatus",
+          "properties": {
+            "state": "error",
+            "description": "WIP pull requests cannot be merged"
+          }
+        }
+      ],
+      "alternate": [
+        {
+          "node-type": "setGitHubStatus",
+          "properties": {
+            "state": "success"
+          }
+        }
+      ]
+    }
+  ]
+}
